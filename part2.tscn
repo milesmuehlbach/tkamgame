@@ -1,0 +1,664 @@
+[gd_scene load_steps=38 format=3 uid="uid://b7s748ndi3nno"]
+
+[ext_resource type="Script" uid="uid://clci5wc6dqvba" path="res://part2.gd" id="1_mpit6"]
+[ext_resource type="Texture2D" uid="uid://b1e2cohjlp8sr" path="res://Assets/desk.png" id="2_s7bwc"]
+[ext_resource type="Texture2D" uid="uid://cuy6l3k64u4nr" path="res://Assets/image2.png" id="3_8fxi8"]
+[ext_resource type="Texture2D" uid="uid://ddusw4sf3c5kh" path="res://Assets/image3.png" id="4_53j12"]
+[ext_resource type="FontFile" uid="uid://ds5fcb2cu8b4j" path="res://Assets/JacquardaBastarda9-Regular.ttf" id="4_j54op"]
+[ext_resource type="Theme" uid="uid://jr0rap1ddkjf" path="res://railraodtheme.tres" id="6_2om5i"]
+[ext_resource type="Texture2D" uid="uid://byex2q1f03h47" path="res://Assets/scenarioborder.png" id="7_jgytn"]
+[ext_resource type="Texture2D" uid="uid://d00gd32k8vpp3" path="res://Computer.png" id="8_y6e53"]
+
+[sub_resource type="Animation" id="Animation_1h5ex"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Railroad-idle:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Railroad-idle:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-497, 454)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Railroad-idle/ColorRect:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-14, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Railroad-idle/dialouge:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7ngta"]
+resource_name = "idle"
+length = 1.6
+loop_mode = 1
+step = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Railroad-idle:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_rlmrl"]
+resource_name = "slidedown"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Railroad-idle:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-502, 215), Vector2(-497, 454)]
+}
+
+[sub_resource type="Animation" id="Animation_5ilt7"]
+resource_name = "slideup"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Railroad-idle:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-497, 454), Vector2(-502, 215)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Railroad-idle/ColorRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-14, 0), Vector2(-14, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Railroad-idle/dialouge:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(10, 0), Vector2(10, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3rl5u"]
+resource_name = "timeslidein"
+step = 1.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0c0il"]
+_data = {
+&"RESET": SubResource("Animation_1h5ex"),
+&"idle": SubResource("Animation_7ngta"),
+&"slidedown": SubResource("Animation_rlmrl"),
+&"slideup": SubResource("Animation_5ilt7"),
+&"timeslidein": SubResource("Animation_3rl5u")
+}
+
+[sub_resource type="Theme" id="Theme_5f11f"]
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/font_sizes/font_size = 12
+Label/fonts/font = ExtResource("4_j54op")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3hnq"]
+
+[sub_resource type="Animation" id="Animation_t3jsh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.471, -615.522)]
+}
+
+[sub_resource type="Animation" id="Animation_q0cp7"]
+resource_name = "slidein"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.471, -540.882), Vector2(0, 106.828)]
+}
+
+[sub_resource type="Animation" id="Animation_dctcv"]
+resource_name = "slideout"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 8.608), Vector2(1.471, -540.882)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cp5wc"]
+_data = {
+&"RESET": SubResource("Animation_t3jsh"),
+&"slidein": SubResource("Animation_q0cp7"),
+&"slideout": SubResource("Animation_dctcv")
+}
+
+[sub_resource type="Animation" id="Animation_hfotf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p2q4v"]
+resource_name = "fadein"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uexj4"]
+_data = {
+&"RESET": SubResource("Animation_hfotf"),
+&"fadein": SubResource("Animation_p2q4v")
+}
+
+[sub_resource type="InputEventKey" id="InputEventKey_iqglq"]
+device = -1
+meta_pressed = true
+keycode = 78
+
+[sub_resource type="Shortcut" id="Shortcut_mwfn2"]
+events = [SubResource("InputEventKey_iqglq")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_5fj1a"]
+device = -1
+meta_pressed = true
+keycode = 83
+
+[sub_resource type="Shortcut" id="Shortcut_284e8"]
+events = [SubResource("InputEventKey_5fj1a")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_87qoj"]
+device = -1
+meta_pressed = true
+keycode = 80
+
+[sub_resource type="Shortcut" id="Shortcut_taugx"]
+events = [SubResource("InputEventKey_87qoj")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqi40"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wcvy"]
+bg_color = Color(0.103744, 0.103744, 0.103744, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8h52"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_7q64y"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_nefth"]
+events = [SubResource("InputEventKey_7q64y")]
+
+[sub_resource type="Animation" id="Animation_53j12"]
+resource_name = "slidedown"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(438.001, -705.822), Vector2(438.001, -543.162)]
+}
+
+[sub_resource type="Animation" id="Animation_y6e53"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(438.001, -705.822)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_orrgm"]
+_data = {
+&"RESET": SubResource("Animation_y6e53"),
+&"slidedown": SubResource("Animation_53j12")
+}
+
+[node name="Gamescene" type="Node2D"]
+script = ExtResource("1_mpit6")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 4096
+position = Vector2(-1, 0)
+
+[node name="Desk" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(3, -139)
+scale = Vector2(9.35156, 7.37109)
+texture = ExtResource("2_s7bwc")
+
+[node name="Deskbg" type="Sprite2D" parent="."]
+position = Vector2(1.4708, -12.0625)
+scale = Vector2(5.967, 5.735)
+texture = ExtResource("3_8fxi8")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Railroad-idle" type="Sprite2D" parent="."]
+z_index = 2590
+position = Vector2(-497, 454)
+scale = Vector2(7.91, 7.91)
+texture = ExtResource("4_53j12")
+hframes = 2
+frame = 1
+
+[node name="ColorRect" type="ColorRect" parent="Railroad-idle"]
+z_index = -1
+offset_left = -14.0
+offset_right = 360.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="dialouge" type="Label" parent="Railroad-idle"]
+offset_left = 10.0
+offset_right = 490.0
+offset_bottom = 72.0
+scale = Vector2(0.26, 0.26)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_j54op")
+theme_override_font_sizes/font_size = 13
+text = "placeholder text lol, you shouldn't be reading this. if you're reading this I owe you 2 bucks. (unless your adam or looking over my shoulder while I work on the game)"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Railroad-idle"]
+reset_on_save = false
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_0c0il")
+}
+
+[node name="problem" type="Node2D" parent="."]
+z_index = 3265
+position = Vector2(1.471, -615.522)
+scale = Vector2(5.967, 5.735)
+
+[node name="Label" type="Label" parent="problem"]
+z_index = 3
+offset_left = -23.0385
+offset_top = -42.9151
+offset_right = 2289.96
+offset_bottom = 630.085
+scale = Vector2(0.02, 0.02)
+theme = SubResource("Theme_5f11f")
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 150
+text = "Railroad Runs into huge
+mountian!
+
+What do you do?
+"
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="problem/Label"]
+layout_mode = 0
+offset_left = 25.1384
+offset_top = 1176.98
+offset_right = 1075.14
+offset_bottom = 1249.98
+scale = Vector2(2.22, 2.22)
+theme = ExtResource("6_2om5i")
+theme_override_fonts/font = ExtResource("4_j54op")
+theme_override_font_sizes/font_size = 58
+theme_override_styles/normal = SubResource("StyleBoxFlat_y3hnq")
+text = "Drill into it (Costs Money)"
+alignment = 0
+text_overrun_behavior = 3
+autowrap_mode = 3
+
+[node name="Button2" type="Button" parent="problem/Label"]
+layout_mode = 0
+offset_left = 67.0355
+offset_top = 1970.36
+offset_right = 1117.04
+offset_bottom = 2043.36
+scale = Vector2(2.22, 2.22)
+theme = ExtResource("6_2om5i")
+theme_override_fonts/font = ExtResource("4_j54op")
+theme_override_font_sizes/font_size = 58
+theme_override_styles/normal = SubResource("StyleBoxFlat_y3hnq")
+text = "Drill into it (Costs Money)"
+alignment = 0
+text_overrun_behavior = 3
+autowrap_mode = 3
+
+[node name="Button3" type="Button" parent="problem/Label"]
+layout_mode = 0
+offset_left = 25.1384
+offset_top = 2868.35
+offset_right = 1075.14
+offset_bottom = 2941.35
+scale = Vector2(2.22, 2.22)
+theme = ExtResource("6_2om5i")
+theme_override_fonts/font = ExtResource("4_j54op")
+theme_override_font_sizes/font_size = 58
+theme_override_styles/normal = SubResource("StyleBoxFlat_y3hnq")
+text = "Drill into it (Costs Money)"
+alignment = 0
+text_overrun_behavior = 3
+autowrap_mode = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="problem"]
+libraries = {
+&"": SubResource("AnimationLibrary_cp5wc")
+}
+
+[node name="Scenarioborder" type="Sprite2D" parent="problem"]
+position = Vector2(2.2673, -4.55414)
+scale = Vector2(1.43121, 1.4891)
+texture = ExtResource("7_jgytn")
+
+[node name="fade" type="ColorRect" parent="."]
+z_index = 4096
+offset_left = -713.0
+offset_top = -439.0
+offset_right = 756.0
+offset_bottom = 560.0
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="fade"]
+libraries = {
+&"": SubResource("AnimationLibrary_uexj4")
+}
+
+[node name="debugmenu" type="Node2D" parent="."]
+visible = false
+z_index = 3000
+
+[node name="nextproblem" type="Button" parent="debugmenu"]
+z_index = 3500
+z_as_relative = false
+offset_left = 407.0
+offset_top = 57.0
+offset_right = 591.0
+offset_bottom = 88.0
+shortcut = SubResource("Shortcut_mwfn2")
+text = "Next Problem (CMD-N)"
+metadata/_edit_use_anchors_ = true
+
+[node name="skiptut" type="Button" parent="debugmenu"]
+z_index = 3500
+z_as_relative = false
+offset_left = 407.0
+offset_top = 93.0
+offset_right = 537.0
+offset_bottom = 124.0
+shortcut = SubResource("Shortcut_284e8")
+text = "Tutskip (CMD-S)"
+metadata/_edit_use_anchors_ = true
+
+[node name="skiptut2" type="Button" parent="debugmenu"]
+z_index = 3500
+z_as_relative = false
+offset_left = 407.0
+offset_top = 129.0
+offset_right = 537.0
+offset_bottom = 183.0
+shortcut = SubResource("Shortcut_taugx")
+text = "To platforms
+(CMD-P)"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="debugmenu"]
+z_index = 190
+offset_left = 406.0
+offset_top = 28.0
+offset_right = 461.0
+offset_bottom = 51.0
+text = "DEBUG"
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="debugmenu"]
+offset_left = 394.0
+offset_top = 17.0
+offset_right = 588.0
+offset_bottom = 340.0
+color = Color(0.290196, 0.290196, 0.290196, 1)
+
+[node name="Button" type="Button" parent="."]
+z_index = 4096
+z_as_relative = false
+offset_left = 363.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = -286.0
+theme = ExtResource("6_2om5i")
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.74558, 0.74558, 0.74558, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_j54op")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lqi40")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0wcvy")
+theme_override_styles/normal = SubResource("StyleBoxFlat_m8h52")
+shortcut = SubResource("Shortcut_nefth")
+text = "Next Text -->"
+
+[node name="LastRating" type="Node2D" parent="."]
+position = Vector2(1.471, -540.882)
+scale = Vector2(5.967, 5.735)
+
+[node name="ColorRect" type="ColorRect" parent="LastRating"]
+offset_left = -97.0
+offset_top = 38.0
+offset_right = -47.0
+offset_bottom = 65.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="LastRating"]
+offset_left = -96.945
+offset_top = 43.2227
+offset_right = 120.055
+offset_bottom = 134.223
+scale = Vector2(0.23, 0.23)
+theme = ExtResource("6_2om5i")
+theme_override_font_sizes/font_size = 81
+text = "N/A"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="LastRating"]
+offset_left = -94.0
+offset_top = 39.0
+offset_right = 367.0
+offset_bottom = 62.0
+scale = Vector2(0.04, 0.04)
+theme = ExtResource("6_2om5i")
+theme_override_font_sizes/font_size = 151
+text = "Last Rating:"
+horizontal_alignment = 1
+
+[node name="timah" type="Node2D" parent="."]
+position = Vector2(438.001, -705.822)
+scale = Vector2(5.967, 5.735)
+
+[node name="ColorRect" type="ColorRect" parent="timah"]
+offset_left = -97.0
+offset_top = 38.0
+offset_right = -47.0
+offset_bottom = 65.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="timah"]
+offset_left = -100.218
+offset_top = 43.5714
+offset_right = 144.782
+offset_bottom = 134.572
+scale = Vector2(0.23, 0.23)
+theme = ExtResource("6_2om5i")
+theme_override_font_sizes/font_size = 61
+text = "60.00"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="timah"]
+libraries = {
+&"": SubResource("AnimationLibrary_orrgm")
+}
+
+[node name="Timer" type="Timer" parent="timah"]
+wait_time = 60.0
+one_shot = true
+
+[node name="wapassed" type="Node2D" parent="."]
+visible = false
+z_index = 4096
+position = Vector2(-577, -293)
+scale = Vector2(1.37241, 1.31905)
+
+[node name="ColorRect" type="ColorRect" parent="wapassed"]
+offset_left = 139.171
+offset_top = 113.718
+offset_right = 716.171
+offset_bottom = 247.718
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="wapassed"]
+z_index = 4096
+offset_left = 153.015
+offset_top = 122.816
+offset_right = 709.016
+offset_bottom = 179.816
+theme = ExtResource("6_2om5i")
+theme_override_font_sizes/font_size = 51
+text = "Attack Neutralized"
+
+[node name="nextb" type="Button" parent="wapassed"]
+offset_left = 378.167
+offset_top = 192.563
+offset_right = 447.167
+offset_bottom = 230.563
+text = "Finish!"
+
+[node name="Computer" type="Sprite2D" parent="."]
+z_index = 50
+position = Vector2(-10, 107)
+scale = Vector2(19.4375, 19.7812)
+texture = ExtResource("8_y6e53")
+
+[node name="redflash" type="ColorRect" parent="."]
+visible = false
+z_index = 4096
+offset_left = -669.0
+offset_top = -438.0
+offset_right = 682.0
+offset_bottom = 406.0
+mouse_filter = 2
+color = Color(0.63, 0, 0, 0.67451)
+
+[connection signal="animation_finished" from="Railroad-idle/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="pressed" from="problem/Label/Button" to="." method="_button1pressed"]
+[connection signal="pressed" from="problem/Label/Button2" to="." method="_button2pressed"]
+[connection signal="pressed" from="problem/Label/Button3" to="." method="button3pressed"]
+[connection signal="animation_finished" from="fade/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="pressed" from="debugmenu/skiptut" to="." method="tutskip"]
+[connection signal="pressed" from="debugmenu/skiptut2" to="." method="platforms"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="wapassed/nextb" to="." method="_on_nextb_pressed"]

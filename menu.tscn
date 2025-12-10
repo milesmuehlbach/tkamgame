@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://rfvmyprdcoio"]
+
+[ext_resource type="Script" uid="uid://d383smlfe6x5g" path="res://menu.gd" id="1_unt4f"]
+[ext_resource type="Theme" uid="uid://jr0rap1ddkjf" path="res://railraodtheme.tres" id="1_vjiqq"]
+[ext_resource type="FontFile" uid="uid://ds5fcb2cu8b4j" path="res://Assets/JacquardaBastarda9-Regular.ttf" id="2_nfdwy"]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_unt4f")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -540.0
+offset_top = -283.0
+offset_right = 578.0
+offset_bottom = -204.0
+theme = ExtResource("1_vjiqq")
+theme_override_font_sizes/font_size = 69
+text = "Untitled Computer Job Game"
+
+[node name="Button" type="Button" parent="."]
+offset_left = -540.0
+offset_top = -200.0
+offset_right = -408.0
+offset_bottom = -135.0
+theme = ExtResource("1_vjiqq")
+theme_override_fonts/font = ExtResource("2_nfdwy")
+theme_override_font_sizes/font_size = 51
+text = "Play"
+alignment = 0
+
+[node name="Button2" type="Button" parent="."]
+offset_left = -540.0
+offset_top = -131.0
+offset_right = -285.0
+offset_bottom = -66.0
+theme = ExtResource("1_vjiqq")
+theme_override_fonts/font = ExtResource("2_nfdwy")
+theme_override_font_sizes/font_size = 51
+disabled = true
+text = "Settings"
+alignment = 0
+
+[node name="Button3" type="Button" parent="."]
+offset_left = -540.0
+offset_top = -62.0
+offset_right = -408.0
+offset_bottom = 3.0
+theme = ExtResource("1_vjiqq")
+theme_override_fonts/font = ExtResource("2_nfdwy")
+theme_override_font_sizes/font_size = 51
+disabled = true
+text = "Exit"
+alignment = 0
+
+[node name="CheckButton" type="CheckButton" parent="."]
+offset_left = -533.0
+offset_top = 8.0
+offset_right = -418.0
+offset_bottom = 39.0
+text = "Fast text"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -527.0
+offset_top = 49.0
+offset_right = -272.0
+offset_bottom = 124.0
+text = "Both Parts Programmed By Miles
+Art: Adam
+Pt 1 writing: Adam
+Pt 2 writng: Miles"
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered" binds= [NodePath(".")]]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="Button2" to="." method="_on_button_mouse_entered" binds= [NodePath(".")]]
+[connection signal="mouse_entered" from="Button3" to="." method="_on_button_mouse_entered" binds= [NodePath(".")]]
+[connection signal="pressed" from="CheckButton" to="." method="_on_check_button_pressed"]
