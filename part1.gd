@@ -30,16 +30,13 @@ signal buttonpress
 
 # ---------------- READY ----------------
 func _ready() -> void:
-	textspeed = 0.015 if Autoloadvars.fasttext else 0.03
-	$fade.position.x = 5000
-
-	textboxani.play("RESET")
+	get_tree().change_scene_to_file("res://cutscene.tscn")
 	problemani.play("RESET")
 	dialogue_label.text = ""
 
 	runtutorial()
 
-func say(text: String, num := 0): 
+func say(text: String): 
 	var lasttext := "" 
 	$"Railroad-idle/dialouge".text = ""
 	talking = true 

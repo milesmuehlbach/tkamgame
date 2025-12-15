@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bgehuv2lecrxl"]
+[gd_scene load_steps=29 format=3 uid="uid://bgehuv2lecrxl"]
 
 [ext_resource type="Script" uid="uid://dhqbage3fvebp" path="res://part1.gd" id="1_6cm6d"]
 [ext_resource type="Texture2D" uid="uid://b1e2cohjlp8sr" path="res://Assets/desk.png" id="2_onhui"]
@@ -242,23 +242,6 @@ keycode = 80
 [sub_resource type="Shortcut" id="Shortcut_taugx"]
 events = [SubResource("InputEventKey_87qoj")]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8h52"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wcvy"]
-bg_color = Color(0.103744, 0.103744, 0.103744, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqi40"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="InputEventKey" id="InputEventKey_7q64y"]
-device = -1
-keycode = 32
-unicode = 32
-
-[sub_resource type="Shortcut" id="Shortcut_nefth"]
-events = [SubResource("InputEventKey_7q64y")]
-
 [node name="Gamescene" type="Node2D"]
 script = ExtResource("1_6cm6d")
 
@@ -473,24 +456,6 @@ offset_right = 588.0
 offset_bottom = 340.0
 color = Color(0.290196, 0.290196, 0.290196, 1)
 
-[node name="Button" type="Button" parent="."]
-z_index = 4096
-z_as_relative = false
-offset_left = 363.0
-offset_top = -324.0
-offset_right = 576.0
-offset_bottom = -286.0
-theme = ExtResource("6_oe6lr")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0.74558, 0.74558, 0.74558, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("4_pqi7p")
-theme_override_styles/normal = SubResource("StyleBoxFlat_m8h52")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_0wcvy")
-theme_override_styles/hover = SubResource("StyleBoxFlat_lqi40")
-shortcut = SubResource("Shortcut_nefth")
-text = "Next Text -->"
-
 [node name="LastRating" type="Node2D" parent="."]
 position = Vector2(1.471, -540.882)
 scale = Vector2(5.967, 5.735)
@@ -547,13 +512,6 @@ theme = ExtResource("6_oe6lr")
 theme_override_font_sizes/font_size = 51
 text = "You're Hired!"
 
-[node name="nextb" type="Button" parent="wapassed"]
-offset_left = 378.167
-offset_top = 192.563
-offset_right = 447.167
-offset_bottom = 230.563
-text = "Next -->"
-
 [connection signal="animation_finished" from="Railroad-idle/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="pressed" from="problem/Label/Button" to="." method="_button1pressed"]
 [connection signal="pressed" from="problem/Label/Button2" to="." method="_button2pressed"]
@@ -561,5 +519,3 @@ text = "Next -->"
 [connection signal="animation_finished" from="fade/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="pressed" from="debugmenu/skiptut" to="." method="tutskip"]
 [connection signal="pressed" from="debugmenu/skiptut2" to="." method="platforms"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="wapassed/nextb" to="." method="_on_nextb_pressed"]
