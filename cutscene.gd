@@ -19,15 +19,15 @@ func say(text: String, num := 0):
 	finishtalking.emit()
 
 func starttalking():
-	say("The Jury has conferred, and they decided that the defendant is guilty.")
+	say("The Jury has conferred, and they have decided that the defendant is guilty.")
 	await finishtalking
 	await get_tree().create_timer(1.5).timeout
 	say("The defendent will be placed in jail awaiting sentencing.")
 	await finishtalking
 	await get_tree().create_timer(1.5).timeout
-	say("The court is no longer in session.")
+	say("Case dismissed, you are all free to go.")
 	await finishtalking
-	await get_tree().create_timer(1.5)
+	await get_tree().create_timer(1).timeout
 	$cutsceneplayer.play("fadeout")
 	
 func menu():

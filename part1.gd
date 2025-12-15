@@ -27,11 +27,12 @@ signal tutorialcontinue
 signal finishtalking
 signal gameover
 signal buttonpress
+signal np
 
 # ---------------- READY ----------------
 func _ready() -> void:
-	get_tree().change_scene_to_file("res://cutscene.tscn")
 	problemani.play("RESET")
+	$ColorRect/AnimationPlayer.play("RESET")
 	dialogue_label.text = ""
 
 	runtutorial()
@@ -54,7 +55,7 @@ func runtutorial() -> void:
 	await textboxani.animation_finished 
 	
 	# 2. Now start the dialogue
-	await say("Hey there. It's the 1930s, and my name is Atticus Finch.")
+	await say("Hey there. It's the 1930s, and my name is Atticus Finch. (Press Space to Continue)")
 	await pressedspace
 
 	await say("We are in court for Tom Robinson, a black man accused of a crime he didn't do.")
@@ -104,16 +105,13 @@ func mouseadj(item: Node2D, intensityy: float, intensityx: float, yoffset: float
 
 # ---------------- CALLBACKS ----------------
 func _on_gameover() -> void:
-	$fade.position.x = -713
-	fadeani.play("fadein")
+	get_tree().change_scene_to_file("res://gameover.tscn")
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "slideup":
 		tutorial = true
 	elif anim_name == "slidedown":
 		$"Railroad-idle".visible = false
-	elif anim_name == "fadein":
-		get_tree().change_scene_to_file("res://gameover.tscn")
 
 # ---------------- BUTTONS ----------------
 func _button1pressed() -> void:
@@ -133,68 +131,62 @@ func _button3pressed() -> void:
 	else:
 		buttonno = 3
 		buttonpress.emit()
-func gameloop(number: int) -> void:
-	# 1. Check for end of game BEFORE doing any UI work
-	if number > 6:
-		get_tree().change_scene_to_file("res://cutscene.tscn")
-		return
 
-	# 2. Reset the scenario
+func cutscene():
+	get_tree().change_scene_to_file("res://cutscene.tscn")
+
+func gameloop(number):
+	if number > 4:
+		await get_tree().create_timer(1).timeout
+		get_tree().change_scene_to_file("res://cutscene.tscn")
+		#$wapassed.visible = true
+		await np
+	print(number)
+	# Create a new scenario object from ProblemScenario based on the number
 	var curscenario = ProblemScenario1.new()
+
+	# Update the problem label text with the generated scenario's description
 	$problem/Label.text = curscenario.text
 
-	var answers = [
-		{ "text": curscenario.buttontext1, "affect": curscenario.affect1 },
-		{ "text": curscenario.buttontext2, "affect": curscenario.affect2 },
-		{ "text": curscenario.buttontext3, "affect": curscenario.affect3 }
-	]
+	# Set the first button text
+	$problem/Label/Button.text = curscenario.buttontext1
 
-	answers.shuffle()
+	# Set the second button text
+	$problem/Label/Button2.text = curscenario.buttontext2
+	
+	$problem/Label/Button3.text = curscenario.buttontext3
 
-	current_affects = [
-		answers[0].affect,
-		answers[1].affect,
-		answers[2].affect
-	]
 
-	$problem/Label/Button.text = answers[0].text
-	$problem/Label/Button2.text = answers[1].text
-	$problem/Label/Button3.text = answers[2].text
-
-	# Enable buttons
+	# Play an animation to slide in the next scenario
+	$problem/AnimationPlayer.play("slidein")
+	# Un-Disable Buttons so they can be pressed
 	$problem/Label/Button.disabled = false
 	$problem/Label/Button2.disabled = false
 	$problem/Label/Button3.disabled = false
-
-	problemani.play("slidein")
-
-	# 3. Wait for the signal
 	await buttonpress
-
-	# 4. Handle results
-	var affect = current_affects[buttonno - 1]
-
-	if affect == "BAD":
+	var affect : String = "error"
+	if buttonno == 1:
+		affect = curscenario.affect1
+	elif buttonno == 2:
+		affect = curscenario.affect2
+	elif buttonno == 3:
+		affect = curscenario.affect3
+	if $LastRating/Label.text == "OK" && affect == "OK":
 		gameover.emit()
-		return
-
-	if $LastRating/Label.text == "OK" and affect == "OK":
+	elif affect == "BAD":
 		gameover.emit()
-		return
-
+	print(affect)
 	$LastRating/Label.text = affect
-
-	# Disable buttons immediately so player can't double-click
-	$problem/Label/Button.disabled = true
+	$problem/Label/Button.release_focus()
+	$problem/Label/Button2.release_focus()
+	$problem/Label/Button3.release_focus()
 	$problem/Label/Button2.disabled = true
 	$problem/Label/Button3.disabled = true
+	$problem/Label/Button.disabled = true
+	$problem/AnimationPlayer.play("slideout")
+	await get_tree().create_timer(1).timeout
+	var nn = number + 1
+	gameloop(nn)
 
-	problemani.play("slideout")
-	
-	# Wait for animation to finish before looping
-	await problemani.animation_finished
-	
-	# Use a small delay for pacing
-	await get_tree().create_timer(0.5).timeout
-
-	gameloop(number+1)
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://cutscene.tscn")

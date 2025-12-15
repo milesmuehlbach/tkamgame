@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bgehuv2lecrxl"]
+[gd_scene load_steps=32 format=3 uid="uid://bgehuv2lecrxl"]
 
 [ext_resource type="Script" uid="uid://dhqbage3fvebp" path="res://part1.gd" id="1_6cm6d"]
 [ext_resource type="Texture2D" uid="uid://b1e2cohjlp8sr" path="res://Assets/desk.png" id="2_onhui"]
@@ -183,34 +183,10 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_hfotf"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_p2q4v"]
 resource_name = "fadein"
 length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uexj4"]
 _data = {
@@ -241,6 +217,80 @@ keycode = 80
 
 [sub_resource type="Shortcut" id="Shortcut_taugx"]
 events = [SubResource("InputEventKey_87qoj")]
+
+[sub_resource type="Animation" id="Animation_sxcpq"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-750, -394)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"cutscene"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_nnky2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5000, -394)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ipnwi"]
+_data = {
+&"RESET": SubResource("Animation_nnky2"),
+&"fade": SubResource("Animation_sxcpq")
+}
 
 [node name="Gamescene" type="Node2D"]
 script = ExtResource("1_6cm6d")
@@ -391,9 +441,9 @@ texture = ExtResource("7_bhw74")
 
 [node name="fade" type="ColorRect" parent="."]
 z_index = 4096
-offset_left = -713.0
+offset_left = 5000.0
 offset_top = -420.0
-offset_right = 756.0
+offset_right = 6469.0
 offset_bottom = 579.0
 color = Color(0, 0, 0, 0)
 
@@ -510,7 +560,27 @@ offset_right = 781.881
 offset_bottom = 179.816
 theme = ExtResource("6_oe6lr")
 theme_override_font_sizes/font_size = 51
-text = "You're Hired!"
+text = "Verdict Time"
+
+[node name="Button" type="Button" parent="wapassed"]
+offset_left = 395.65433
+offset_top = 197.86967
+offset_right = 440.65433
+offset_bottom = 228.86967
+text = "Next"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 4096
+offset_left = 5000.0
+offset_top = -394.0
+offset_right = 6414.0
+offset_bottom = 349.0
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_ipnwi")
+}
 
 [connection signal="animation_finished" from="Railroad-idle/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="pressed" from="problem/Label/Button" to="." method="_button1pressed"]
@@ -519,3 +589,4 @@ text = "You're Hired!"
 [connection signal="animation_finished" from="fade/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="pressed" from="debugmenu/skiptut" to="." method="tutskip"]
 [connection signal="pressed" from="debugmenu/skiptut2" to="." method="platforms"]
+[connection signal="pressed" from="wapassed/Button" to="." method="_on_button_pressed"]

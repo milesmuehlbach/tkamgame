@@ -14,11 +14,19 @@ var inputno = randi_range(1,6)
 var buttonchoiceno
 
 func _init() -> void:
+	print("picking...")
+
 	while inputno in Autoloadvars.usedscenariospt1:
-		inputno = randi_range(1,6)
+		print("choosing new...")
+		inputno = randi_range(1, 6)
+		print(inputno)
+	print(Autoloadvars.usedscenariospt1)
+
+	print("final choice:", inputno)
 
 	Autoloadvars.usedscenariospt1.append(inputno)
 
+	print("setting textboxes...")
 	match str(inputno):
 
 		'1':
@@ -31,17 +39,17 @@ func _init() -> void:
 			affect3 = "BAD"
 
 		'2':
-			text = "How can you use Tom's arm injury in the case?"
+			text = "How can you use Tom's injury in the case?"
 			buttontext1 = "Show that he could not have caused Mayella's injuries"
 			buttontext2 = "Offhandedly mention it"
-			buttontext3 = "Ignore it"
+			buttontext3 = "Forget about it"
 			affect1 = "GOOD"
 			affect2 = "OK"
 			affect3 = "BAD"
 
 		'3':
-			text = "When you question Tom Robinson on the stand, how should you act?"
-			buttontext1 = "Calm and respectful"
+			text = "When you question Tom, how should you act?"
+			buttontext1 = "Calm and collected"
 			buttontext2 = "Fast and impatient"
 			buttontext3 = "Harsh and aggressive"
 			affect1 = "GOOD"
@@ -49,28 +57,28 @@ func _init() -> void:
 			affect3 = "BAD"
 
 		'4':
-			text = "Some people react negatively to you defending Tom Robinson. What do you do?"
-			buttontext1 = "Continue the case and do your job"
-			buttontext2 = "Change how you act to avoid attention"
-			buttontext3 = "Step back from the case"
+			text = "Some people don't like that you are defending tom. What do you do?"
+			buttontext1 = "Keep the case going and do your job"
+			buttontext2 = "Keep your head low to avoid attention"
+			buttontext3 = "Drop the case"
 			affect1 = "GOOD"
 			affect2 = "OK"
 			affect3 = "BAD"
 
 		'5':
-			text = "You know racial bias exists in the town. How does this affect your approach in court?"
-			buttontext1 = "You stay focused on fairness and the law"
-			buttontext2 = "You avoid addressing it at all"
+			text = "You know racial bias is a large topic within the community. How does this affect your approach?"
+			buttontext1 = "You stay focused on the law"
+			buttontext2 = "You ignore it"
 			buttontext3 = "You let it discourage you"
 			affect1 = "GOOD"
 			affect2 = "OK"
 			affect3 = "BAD"
 
 		'6':
-			text = "During your closing statement, what do you focus on most?"
+			text = "During your closing statement, what should you focus on most?"
 			buttontext1 = "The evidence that shows Tom is innocent"
 			buttontext2 = "Your own feelings about the case"
-			buttontext3 = "Rushing the jury to decide"
+			buttontext3 = "Rushing the Jury's decision"
 			affect1 = "GOOD"
 			affect2 = "OK"
 			affect3 = "BAD"
