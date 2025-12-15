@@ -18,6 +18,7 @@ var money : int = 500000
 var textspeed = 0.015
 var affect
 var redflashing = false
+var finished = false
 
 signal pressedspace
 signal tutorialcontinue
@@ -214,6 +215,7 @@ func _on_button_pressed() -> void:
 
 func _on_nextb_pressed() -> void:
 	get_tree().change_scene_to_file("res://menu.tscn")
+	finished = true
 	
 func redflash():
 	redflashing = true
@@ -234,6 +236,7 @@ func timer() -> void:
 	while timeleft > 0.0 and is_instance_valid($timah):
 		timeleft = $timah/Timer.time_left
 		$timah/Label.text = str("%.2f" % timeleft)  # fast, twitchy updates
-		await get_tree().process_frame  # update every frame
+		if !finished:
+			await get_tree().process_frame  # update every frame
 	
 	get_tree().change_scene_to_file("res://gameover.tscn")

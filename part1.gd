@@ -1,210 +1,202 @@
 extends Node2D
+
+# ---------------- NODES ----------------
 @onready var desk = $Desk
 @onready var deskbg = $Deskbg
 @onready var textboxani: AnimationPlayer = $"Railroad-idle/AnimationPlayer"
+@onready var dialogue_label: Label = $"Railroad-idle/dialouge" # Cached for performance
 @onready var problemani: AnimationPlayer = $problem/AnimationPlayer
-var talking : bool = false
-var tutorial : bool = false
-var debug : bool = false
-var isresponse : bool = false
-var buttonno = 0
-var boxnum
-var problemno
-var years
-var months
-var tempmonths = 0
-var scenariocounter = 0
-var money : int = 500000
-var textspeed = 0.015
+@onready var fadeani: AnimationPlayer = $fade/AnimationPlayer
 
+# ---------------- STATE ----------------
+var talking: bool = false
+var tutorial: bool = false
+var debug: bool = false
+var isresponse: bool = false
+
+var buttonno := 0
+var scenariocounter := 0
+var money: int = 500000
+var textspeed := 0.015
+
+var current_affects: Array = []
+
+# ---------------- SIGNALS ----------------
 signal pressedspace
 signal tutorialcontinue
 signal finishtalking
 signal gameover
 signal buttonpress
-signal np
 
-	# Update the UI label  
+# ---------------- READY ----------------
 func _ready() -> void:
-	if Autoloadvars.fasttext:
-		textspeed = 0.015
-	else:
-		textspeed = 0.03
+	textspeed = 0.015 if Autoloadvars.fasttext else 0.03
 	$fade.position.x = 5000
-	print($fade.position.x)
-	gohandler()
+
 	textboxani.play("RESET")
 	problemani.play("RESET")
-	$"Railroad-idle/dialouge".text = ""
+	dialogue_label.text = ""
+
 	runtutorial()
 
-func gohandler():
-	await gameover
-	$fade.position.x = -713
-	$fade/AnimationPlayer.play("fadein")
-
-func say(text, num):
-	var lasttext = ""
+func say(text: String, num := 0): 
+	var lasttext := "" 
 	$"Railroad-idle/dialouge".text = ""
-	talking = true
-	for i in len(text):
-		lasttext = lasttext + text[i]
-		$"Railroad-idle/dialouge".text = lasttext
-		await get_tree().create_timer(textspeed).timeout
-	talking = false
+	talking = true 
+	for i in text.length(): 
+		lasttext += text[i] 
+		$"Railroad-idle/dialouge".text = lasttext 
+		await get_tree().create_timer(textspeed).timeout 
+	talking = false 
 	finishtalking.emit()
 
-
-func runtutorial():
-	textboxani.play("RESET")
+# ---------------- TUTORIAL ----------------
+func runtutorial() -> void:
+	# 1. Slide the textbox up first
 	textboxani.play("slideup")
-	print("slid up")
-	await tutorial
-	say("Welcome back! It's now the 2020s and computers are in our everyday life.", 1)
-	await finishtalking
-	await pressedspace and talking == false
-	say("You are currently interviewing for a Network Tech position at E-Corp.", 2)
-	await finishtalking
-	await pressedspace and talking == false
-	say("You know the deal; If you choose wrong information, you can get a BAD; you fail the interview.", 5)
-	await finishtalking
-	await pressedspace and talking == false
-	say("If you choose information that's just OK, then you get an OK. You then have another chance, but if you get another OK you lose. ", 6)
-	await finishtalking
-	await pressedspace and talking == false
-	say("If you choose the best possible information then you get a GOOD. Getting a good also resets your OK tracker.", 7)
-	await finishtalking
-	await pressedspace and talking == false
-	say("The outcome of your last response is posted in the top left corner. You'll see what I mean when the game starts.", 10)
-	await finishtalking
-	await pressedspace and talking == false
-	say("Let's begin the interview!", 11)
-	await finishtalking and talking == false
+	await textboxani.animation_finished 
+	
+	# 2. Now start the dialogue
+	await say("Hey there. It's the 1930s, and my name is Atticus Finch.")
+	await pressedspace
+
+	await say("We are in court for Tom Robinson, a black man accused of a crime he didn't do.")
+	await pressedspace
+
+	await say("As his attorney, I have to help him win, no matter what.")
+	await pressedspace
+
+	await say("You will receive a series of questions, each with three answer choices. Your choice affects the case.")
+	await pressedspace
+
+	await say("GOOD choices help you win. Two OK choices in a row become a BAD choice. BAD choices end the trial.")
+	await pressedspace
+
+	await say("The court is now in session.")
+	await get_tree().create_timer(1.0).timeout
+
 	tutorial = false
-	textboxani.stop()
+	textboxani.play("slidedown")
+	await textboxani.animation_finished
+	
 	gameloop(1)
-	$"Railroad-idle/AnimationPlayer".play("slidedown")
 
-func mouseadj(item, intensityy, intensityx, yoffset):
-	var mouseposx = clamp(get_viewport().get_mouse_position().x,0,1100)
-	var mouseposy = clamp(get_viewport().get_mouse_position().y,0,650)
-	item.position.x = mouseposx/intensityx
-	item.position.y = mouseposy/intensityy + yoffset 
+# ---------------- PROCESS ----------------
+func _process(_delta: float) -> void:
+	# FIX: Only play "idle" if no other important animation is playing
+	if (tutorial or isresponse) and not textboxani.is_playing():
+		textboxani.play("idle")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if tutorial or isresponse:
-		$"Railroad-idle/AnimationPlayer".play("idle")
 	mouseadj(desk, 30, 70, -140)
 	mouseadj(deskbg, 100, 100, 0)
 
+# ---------------- INPUT ----------------
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept") or event.is_action_pressed("space"):
+		# If we are currently typing, skip the animation (optional polish)
+		if talking:
+			# You could add logic here to finish the tween early
+			pass
+		pressedspace.emit()
 
+# ---------------- MOUSE PARALLAX ----------------
+func mouseadj(item: Node2D, intensityy: float, intensityx: float, yoffset: float) -> void:
+	var mousepos = get_viewport().get_mouse_position()
+	item.position.x = clamp(mousepos.x, 0, 1100) / intensityx
+	item.position.y = clamp(mousepos.y, 0, 650) / intensityy + yoffset
+
+# ---------------- CALLBACKS ----------------
+func _on_gameover() -> void:
+	$fade.position.x = -713
+	fadeani.play("fadein")
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "slideup":
 		tutorial = true
-	if anim_name == "slidedown":
+	elif anim_name == "slidedown":
 		$"Railroad-idle".visible = false
-	if anim_name == "fadein":
+	elif anim_name == "fadein":
 		get_tree().change_scene_to_file("res://gameover.tscn")
-	if anim_name == "moveout":
-		$shop.visible = false
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("space"):
-		pressedspace.emit()
 
-func button3pressed():
-	if tutorial == true:
-		pass
-	else:
-		buttonno = 3
+# ---------------- BUTTONS ----------------
+func _button1pressed() -> void:
+	if tutorial: tutorialcontinue.emit()
+	else: 
+		buttonno = 1
 		buttonpress.emit()
 
 func _button2pressed() -> void:
-	if tutorial == true:
-		tutorialcontinue.emit()
+	if tutorial: tutorialcontinue.emit()
 	else:
 		buttonno = 2
 		buttonpress.emit()
-		
 
-
-func _button1pressed() -> void:
-	if tutorial == true:
-		tutorialcontinue.emit()
+func _button3pressed() -> void:
+	if tutorial: tutorialcontinue.emit()
 	else:
-		buttonno = 1
+		buttonno = 3
 		buttonpress.emit()
-		
-func gameloop(number):
-	if number > 4:
-		$wapassed.visible = true
-		await np
-	print(number)
-	# Create a new scenario object from ProblemScenario based on the number
-	var curscenario = ProblemScenario1.new()
+func gameloop(number: int) -> void:
+	# 1. Check for end of game BEFORE doing any UI work
+	if number > 6:
+		get_tree().change_scene_to_file("res://cutscene.tscn")
 
-	# Update the problem label text with the generated scenario's description
+	# 2. Reset the scenario
+	var curscenario = ProblemScenario1.new()
 	$problem/Label.text = curscenario.text
 
-	# Set the first button text
-	$problem/Label/Button.text = curscenario.buttontext1
+	var answers = [
+		{ "text": curscenario.buttontext1, "affect": curscenario.affect1 },
+		{ "text": curscenario.buttontext2, "affect": curscenario.affect2 },
+		{ "text": curscenario.buttontext3, "affect": curscenario.affect3 }
+	]
 
-	# Set the second button text
-	$problem/Label/Button2.text = curscenario.buttontext2
-	
-	$problem/Label/Button3.text = curscenario.buttontext3
+	answers.shuffle()
 
+	current_affects = [
+		answers[0].affect,
+		answers[1].affect,
+		answers[2].affect
+	]
 
-	# Play an animation to slide in the next scenario
-	$problem/AnimationPlayer.play("slidein")
-	# Un-Disable Buttons so they can be pressed
+	$problem/Label/Button.text = answers[0].text
+	$problem/Label/Button2.text = answers[1].text
+	$problem/Label/Button3.text = answers[2].text
+
+	# Enable buttons
 	$problem/Label/Button.disabled = false
 	$problem/Label/Button2.disabled = false
 	$problem/Label/Button3.disabled = false
+
+	problemani.play("slidein")
+
+	# 3. Wait for the signal
 	await buttonpress
-	var affect : String = "error"
-	if buttonno == 1:
-		affect = curscenario.affect1
-	elif buttonno == 2:
-		affect = curscenario.affect2
-	elif buttonno == 3:
-		affect = curscenario.affect3
-	if $LastRating/Label.text == "OK" && affect == "OK":
+
+	# 4. Handle results
+	var affect = current_affects[buttonno - 1]
+
+	if affect == "BAD":
 		gameover.emit()
-	elif affect == "BAD":
+		return
+
+	if $LastRating/Label.text == "OK" and affect == "OK":
 		gameover.emit()
-	print(affect)
+		return
+
 	$LastRating/Label.text = affect
-	$problem/Label/Button.release_focus()
-	$problem/Label/Button2.release_focus()
-	$problem/Label/Button3.release_focus()
+
+	# Disable buttons immediately so player can't double-click
+	$problem/Label/Button.disabled = true
 	$problem/Label/Button2.disabled = true
 	$problem/Label/Button3.disabled = true
-	$problem/Label/Button.disabled = true
-	$problem/AnimationPlayer.play("slideout")
-	await get_tree().create_timer(1).timeout
-	var nn = number + 1
-	gameloop(nn)
+
+	problemani.play("slideout")
 	
+	# Wait for animation to finish before looping
+	await problemani.animation_finished
 	
-	
+	# Use a small delay for pacing
+	await get_tree().create_timer(0.5).timeout
 
-func tutskip():
-		$"Railroad-idle".visible = false
-		$"Railroad-idle/AnimationPlayer".play("slidedown")
-		$problem/Label/Button.disabled = false
-		$problem/Label/Button2.disabled = false
-		gameloop(1)
-
-
-func platforms() -> void:
-	get_tree().change_scene_to_file("res://railroad_builder.tscn")
-
-
-func _on_button_pressed() -> void:
-	pressedspace.emit()
-
-
-func _on_nextb_pressed() -> void:
-	get_tree().change_scene_to_file("res://part2.tscn")
+	gameloop(number+1)

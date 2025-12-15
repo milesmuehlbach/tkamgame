@@ -13,46 +13,34 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Railroad-idle:frame")
+tracks/0/path = NodePath("Railroad-idle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"update": 0,
+"values": [Vector2(-497, 454)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Railroad-idle:position")
+tracks/1/path = NodePath("Railroad-idle/ColorRect:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-497, 454)]
+"values": [Vector2(-14, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Railroad-idle/ColorRect:position")
+tracks/2/path = NodePath("Railroad-idle/dialouge:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-14, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Railroad-idle/dialouge:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -64,18 +52,6 @@ resource_name = "idle"
 length = 1.6
 loop_mode = 1
 step = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Railroad-idle:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
 
 [sub_resource type="Animation" id="Animation_rlmrl"]
 resource_name = "slidedown"
@@ -266,13 +242,13 @@ keycode = 80
 [sub_resource type="Shortcut" id="Shortcut_taugx"]
 events = [SubResource("InputEventKey_87qoj")]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqi40"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8h52"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wcvy"]
 bg_color = Color(0.103744, 0.103744, 0.103744, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8h52"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqi40"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="InputEventKey" id="InputEventKey_7q64y"]
@@ -289,6 +265,7 @@ script = ExtResource("1_6cm6d")
 [node name="Camera2D" type="Camera2D" parent="."]
 z_index = 4096
 position = Vector2(-1, 0)
+zoom = Vector2(1.68, 1.68)
 
 [node name="Desk" type="Sprite2D" parent="."]
 z_index = 1930
@@ -306,7 +283,7 @@ texture = ExtResource("4_ulnbc")
 hframes = 2
 
 [node name="Deskbg" type="Sprite2D" parent="."]
-position = Vector2(1.4708, -12.0625)
+position = Vector2(1, -12.000001)
 scale = Vector2(5.967, 5.735)
 texture = ExtResource("3_y5akh")
 
@@ -318,11 +295,10 @@ offset_bottom = 40.0
 
 [node name="Railroad-idle" type="Sprite2D" parent="."]
 z_index = 4096
-position = Vector2(-497, 454)
+position = Vector2(-502, 215)
 scale = Vector2(7.91, 7.91)
 texture = ExtResource("4_ulnbc")
 hframes = 2
-frame = 1
 
 [node name="ColorRect" type="ColorRect" parent="Railroad-idle"]
 z_index = -1
@@ -339,7 +315,7 @@ scale = Vector2(0.26, 0.26)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_pqi7p")
 theme_override_font_sizes/font_size = 13
-text = "placeholder text lol, you shouldn't be reading this. if you're reading this I owe you two bucks. (unless you're using my framework, this is only for people playing games made with said framework)"
+text = "if you can read this stuff then you are really freaking strange"
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
@@ -374,14 +350,14 @@ autowrap_mode = 2
 
 [node name="Button" type="Button" parent="problem/Label"]
 layout_mode = 0
-offset_left = 25.1384
+offset_left = 30.0
 offset_top = 1176.98
-offset_right = 1075.14
-offset_bottom = 1249.98
-scale = Vector2(2.22, 2.22)
+offset_right = 2130.004
+offset_bottom = 1309.98
+scale = Vector2(1.11, 1.11)
 theme = ExtResource("6_oe6lr")
 theme_override_fonts/font = ExtResource("4_pqi7p")
-theme_override_font_sizes/font_size = 58
+theme_override_font_sizes/font_size = 120
 theme_override_styles/normal = SubResource("StyleBoxFlat_y3hnq")
 text = "Drill into it (Costs Money)"
 alignment = 0
@@ -390,14 +366,14 @@ autowrap_mode = 3
 
 [node name="Button2" type="Button" parent="problem/Label"]
 layout_mode = 0
-offset_left = 67.0355
+offset_left = 30.0
 offset_top = 1970.36
-offset_right = 1117.04
-offset_bottom = 2043.36
-scale = Vector2(2.22, 2.22)
+offset_right = 2130.004
+offset_bottom = 2103.3599
+scale = Vector2(1.11, 1.11)
 theme = ExtResource("6_oe6lr")
 theme_override_fonts/font = ExtResource("4_pqi7p")
-theme_override_font_sizes/font_size = 58
+theme_override_font_sizes/font_size = 120
 theme_override_styles/normal = SubResource("StyleBoxFlat_y3hnq")
 text = "Drill into it (Costs Money)"
 alignment = 0
@@ -406,14 +382,14 @@ autowrap_mode = 3
 
 [node name="Button3" type="Button" parent="problem/Label"]
 layout_mode = 0
-offset_left = 25.1384
-offset_top = 2868.35
-offset_right = 1075.14
-offset_bottom = 2941.35
-scale = Vector2(2.22, 2.22)
+offset_left = 30.0
+offset_top = 2876.22
+offset_right = 2130.004
+offset_bottom = 3009.22
+scale = Vector2(1.11, 1.11)
 theme = ExtResource("6_oe6lr")
 theme_override_fonts/font = ExtResource("4_pqi7p")
-theme_override_font_sizes/font_size = 58
+theme_override_font_sizes/font_size = 120
 theme_override_styles/normal = SubResource("StyleBoxFlat_y3hnq")
 text = "Drill into it (Costs Money)"
 alignment = 0
@@ -433,9 +409,9 @@ texture = ExtResource("7_bhw74")
 [node name="fade" type="ColorRect" parent="."]
 z_index = 4096
 offset_left = -713.0
-offset_top = -439.0
+offset_top = -420.0
 offset_right = 756.0
-offset_bottom = 560.0
+offset_bottom = 579.0
 color = Color(0, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="fade"]
@@ -505,13 +481,13 @@ offset_top = -324.0
 offset_right = 576.0
 offset_bottom = -286.0
 theme = ExtResource("6_oe6lr")
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0.74558, 0.74558, 0.74558, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.74558, 0.74558, 0.74558, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_pqi7p")
-theme_override_styles/hover = SubResource("StyleBoxFlat_lqi40")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_0wcvy")
 theme_override_styles/normal = SubResource("StyleBoxFlat_m8h52")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0wcvy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lqi40")
 shortcut = SubResource("Shortcut_nefth")
 text = "Next Text -->"
 
@@ -527,13 +503,13 @@ offset_bottom = 65.0
 color = Color(0, 0, 0, 1)
 
 [node name="Label" type="Label" parent="LastRating"]
-offset_left = -96.945
-offset_top = 43.2227
-offset_right = 120.055
-offset_bottom = 134.223
-scale = Vector2(0.23, 0.23)
+offset_left = -106.497574
+offset_top = 44.268875
+offset_right = 475.50244
+offset_bottom = 221.26888
+scale = Vector2(0.115, 0.115)
 theme = ExtResource("6_oe6lr")
-theme_override_font_sizes/font_size = 81
+theme_override_font_sizes/font_size = 160
 text = "N/A"
 horizontal_alignment = 1
 
@@ -581,7 +557,7 @@ text = "Next -->"
 [connection signal="animation_finished" from="Railroad-idle/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="pressed" from="problem/Label/Button" to="." method="_button1pressed"]
 [connection signal="pressed" from="problem/Label/Button2" to="." method="_button2pressed"]
-[connection signal="pressed" from="problem/Label/Button3" to="." method="button3pressed"]
+[connection signal="pressed" from="problem/Label/Button3" to="." method="_button3pressed"]
 [connection signal="animation_finished" from="fade/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="pressed" from="debugmenu/skiptut" to="." method="tutskip"]
 [connection signal="pressed" from="debugmenu/skiptut2" to="." method="platforms"]

@@ -4,6 +4,8 @@
 [ext_resource type="Theme" uid="uid://jr0rap1ddkjf" path="res://railraodtheme.tres" id="1_wh31s"]
 [ext_resource type="Texture2D" uid="uid://m6mtb233prgf" path="res://Assets/button.png" id="2_0xrfx"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qypqg"]
+
 [sub_resource type="Animation" id="Animation_82s3d"]
 length = 0.001
 tracks/0/type = "value"
@@ -104,7 +106,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1151, 649), Vector2(1151, 364)]
+"values": [Vector2(1283.3334, 649), Vector2(1283, 364)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -116,7 +118,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0.966667, 2, 2.03333),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -128,7 +130,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0.966667, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(500, 285), Vector2(500, 350)]
+"values": [Vector2(805, 569), Vector2(804, 644)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -161,18 +163,17 @@ _data = {
 &"gameoverani": SubResource("Animation_bv1c2")
 }
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qypqg"]
-
 [node name="gameover" type="Node2D"]
 script = ExtResource("1_rdg0d")
 
 [node name="Label" type="Label" parent="."]
 z_index = 30
-offset_right = 1280.0
+offset_right = 1151.0
 offset_bottom = 649.0
+scale = Vector2(1.5, 1.5)
 theme = ExtResource("1_wh31s")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 235
+theme_override_font_sizes/font_size = 165
 text = "Game Over"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -180,15 +181,10 @@ vertical_alignment = 1
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -68.0
 offset_top = -30.0
-offset_right = 1252.0
-offset_bottom = 694.0
+offset_right = 1348.0001
+offset_bottom = 746.0
+scale = Vector2(1.5, 1.5)
 color = Color(0, 0, 0, 1)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_lnfnw")
-}
-movie_quit_on_finish = true
 
 [node name="Button" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -200,8 +196,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 6.0
 offset_top = 285.0
-offset_right = 273.0
-offset_bottom = 475.0
+offset_right = 273.0005
+offset_bottom = 475.00012
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(97, 97)
@@ -213,6 +209,11 @@ icon = ExtResource("2_0xrfx")
 flat = true
 icon_alignment = 1
 expand_icon = true
-metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_lnfnw")
+}
+movie_quit_on_finish = true
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

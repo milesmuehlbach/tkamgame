@@ -1,77 +1,150 @@
-[gd_scene load_steps=4 format=3 uid="uid://rfvmyprdcoio"]
+[gd_scene load_steps=8 format=3 uid="uid://rfvmyprdcoio"]
 
-[ext_resource type="Script" uid="uid://d383smlfe6x5g" path="res://menu.gd" id="1_unt4f"]
-[ext_resource type="Theme" uid="uid://jr0rap1ddkjf" path="res://railraodtheme.tres" id="1_vjiqq"]
-[ext_resource type="FontFile" uid="uid://ds5fcb2cu8b4j" path="res://Assets/JacquardaBastarda9-Regular.ttf" id="2_nfdwy"]
+[ext_resource type="Script" uid="uid://d383smlfe6x5g" path="res://menu.gd" id="1"]
+[ext_resource type="Theme" uid="uid://jr0rap1ddkjf" path="res://railraodtheme.tres" id="2"]
+[ext_resource type="FontFile" uid="uid://ds5fcb2cu8b4j" path="res://Assets/JacquardaBastarda9-Regular.ttf" id="3"]
 
-[node name="Menu" type="Node2D"]
-script = ExtResource("1_unt4f")
+[sub_resource type="Animation" id="Animation_mae5d"]
+resource_name = "fadeout"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"removerect"
+}]
+}
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[sub_resource type="Animation" id="Animation_4hy44"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
 
-[node name="Label" type="Label" parent="."]
-offset_left = -540.0
-offset_top = -283.0
-offset_right = 578.0
-offset_bottom = -204.0
-theme = ExtResource("1_vjiqq")
-theme_override_font_sizes/font_size = 69
-text = "Untitled Computer Job Game"
+[sub_resource type="Animation" id="Animation_ytr4m"]
+resource_name = "fadein"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
 
-[node name="Button" type="Button" parent="."]
-offset_left = -540.0
-offset_top = -200.0
-offset_right = -408.0
-offset_bottom = -135.0
-theme = ExtResource("1_vjiqq")
-theme_override_fonts/font = ExtResource("2_nfdwy")
-theme_override_font_sizes/font_size = 51
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ytr4m"]
+_data = {
+&"RESET": SubResource("Animation_4hy44"),
+&"fadein": SubResource("Animation_ytr4m"),
+&"fadeout": SubResource("Animation_mae5d")
+}
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+alignment = 1
+
+[node name="Title" type="Label" parent="VBox"]
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 72
+text = "To Kill A Mockingbird: The Game"
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="VBox"]
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 48
 text = "Play"
-alignment = 0
 
-[node name="Button2" type="Button" parent="."]
-offset_left = -540.0
-offset_top = -131.0
-offset_right = -285.0
-offset_bottom = -66.0
-theme = ExtResource("1_vjiqq")
-theme_override_fonts/font = ExtResource("2_nfdwy")
-theme_override_font_sizes/font_size = 51
-disabled = true
-text = "Settings"
-alignment = 0
-
-[node name="Button3" type="Button" parent="."]
-offset_left = -540.0
-offset_top = -62.0
-offset_right = -408.0
-offset_bottom = 3.0
-theme = ExtResource("1_vjiqq")
-theme_override_fonts/font = ExtResource("2_nfdwy")
-theme_override_font_sizes/font_size = 51
-disabled = true
+[node name="SettingsButton" type="Button" parent="VBox"]
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 48
 text = "Exit"
-alignment = 0
 
-[node name="CheckButton" type="CheckButton" parent="."]
-offset_left = -533.0
-offset_top = 8.0
-offset_right = -418.0
-offset_bottom = 39.0
+[node name="FastTextCheck" type="CheckBox" parent="VBox"]
+layout_mode = 2
+theme = ExtResource("2")
 text = "Fast text"
 
-[node name="Label2" type="Label" parent="."]
-offset_left = -527.0
-offset_top = 49.0
-offset_right = -272.0
-offset_bottom = 124.0
-text = "Both Parts Programmed By Miles
-Art: Adam
-Pt 1 writing: Adam
-Pt 2 writng: Miles"
+[node name="Credits" type="Label" parent="VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Written, Designed, and Programmed by Miles Muehlbach"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered" binds= [NodePath(".")]]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="mouse_entered" from="Button2" to="." method="_on_button_mouse_entered" binds= [NodePath(".")]]
-[connection signal="mouse_entered" from="Button3" to="." method="_on_button_mouse_entered" binds= [NodePath(".")]]
-[connection signal="pressed" from="CheckButton" to="." method="_on_check_button_pressed"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../VBox")
+libraries = {
+&"": SubResource("AnimationLibrary_ytr4m")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = -21.0
+offset_right = 1975.0
+offset_bottom = 1119.0
+color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="VBox/PlayButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBox/FastTextCheck" to="." method="_on_check_button_pressed"]

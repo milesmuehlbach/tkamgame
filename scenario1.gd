@@ -1,82 +1,88 @@
 extends Node
 class_name ProblemScenario2
+
 var text : String = "no_text_defined"
 var buttontext1 : String = "no_button_text_defined"
 var buttontext2 : String = "no_button_text_defined"
 var buttontext3 : String = "no_button_text_defined"
+
 var affect1 = "error"
 var affect2 = "error"
 var affect3 = "error"
+
 var inputno = randi_range(1,6)
 var buttonchoiceno
 
-# Called when the node enters the scene tree for the first time.
 func _init() -> void:
-	print("picking...")
 	for value in Autoloadvars.usedscenariospt1:
 		if value == inputno:
-			print("choosing new...")
 			inputno = randi_range(1,6)
-			print(inputno)
 			_init()
 			break
-	print(inputno)
+
 	Autoloadvars.usedscenariospt1.append(inputno)
-	print("setting textboxes...")
+
 	match str(inputno):
+
 		'1':
-			text = "A hacker is attacking our network! What's the first thing to do?"
-			buttontext1 = "Tell the boss right away"
-			buttontext2 = "Find the problem and stop it from spreading"
-			buttontext3 = "Shut down every computer"
-			affect1 = "BAD"
-			affect2 = "GOOD"
-			affect3 = "OK"
+			text = "You are defending Tom Robinson in court. What is the most important thing to focus on?"
+			buttontext1 = "The facts and evidence"
+			buttontext2 = "What people in town are saying"
+			buttontext3 = "Finishing the trial quickly"
+			affect1 = "GOOD"
+			affect2 = "OK"
+			affect3 = "BAD"
+
 		'2':
-			text = "How do hackers usually break into a company’s systems?"
-			buttontext1 = "By sending fake emails to trick people into clicking bad links"
-			buttontext2 = "By guessing random passwords"
-			buttontext3 = "By sneaking into the office and stealing a computer"
+			text = "You notice that Tom Robinson’s left arm is injured. How do you use this in the trial?"
+			buttontext1 = "Show that he could not have caused the injuries"
+			buttontext2 = "Mention it briefly without explaining"
+			buttontext3 = "Ignore it"
 			affect1 = "GOOD"
 			affect2 = "OK"
 			affect3 = "BAD"
+
 		'3':
-			text = "We stopped the hacker—now what?"
-			buttontext1 = "Check the computer logs to see what they did"
-			buttontext2 = "Restart everything and hope for the best"
-			buttontext3 = "Ignore it since the attack is over"
+			text = "When you question Tom Robinson on the stand, how should you act?"
+			buttontext1 = "Calm and respectful"
+			buttontext2 = "Fast and impatient"
+			buttontext3 = "Harsh and aggressive"
 			affect1 = "GOOD"
 			affect2 = "OK"
 			affect3 = "BAD"
+
 		'4':
-			text = "Why does a cyberattack matter to a company?"
-			buttontext1 = "It can cost a lot of money and make people lose trust"
-			buttontext2 = "It's just annoying for a little while"
-			buttontext3 = "It doesn’t really hurt the company"
+			text = "Some people react negatively to you defending Tom Robinson. What do you do?"
+			buttontext1 = "Continue the case and do your job"
+			buttontext2 = "Change how you act to avoid attention"
+			buttontext3 = "Step back from the case"
 			affect1 = "GOOD"
 			affect2 = "OK"
 			affect3 = "BAD"
+
 		'5':
-			text = "How can we stop this from happening again?"
-			buttontext1 = "Train employees and check security regularly"
-			buttontext2 = "Change passwords once a year"
-			buttontext3 = "Install antivirus and call it a day"
+			text = "You know racial bias exists in the town. How does this affect your approach in court?"
+			buttontext1 = "You stay focused on fairness and the law"
+			buttontext2 = "You avoid addressing it at all"
+			buttontext3 = "You let it discourage you"
 			affect1 = "GOOD"
 			affect2 = "OK"
 			affect3 = "BAD"
+
 		'6':
-			text = "We fixed the problem! What’s the last step?"
-			buttontext1 = "Write down what happened and improve security"
-			buttontext2 = "Hope that hackers don’t attack again"
-			buttontext3 = "Tell employees to be more careful next time"
+			text = "During your closing statement, what do you focus on most?"
+			buttontext1 = "The evidence that shows Tom is innocent"
+			buttontext2 = "Your own feelings about the case"
+			buttontext3 = "Rushing the jury to decide"
 			affect1 = "GOOD"
-			affect2 = "BAD"
-			affect3 = "OK"
+			affect2 = "OK"
+			affect3 = "BAD"
+
 		_:
 			text = "error"
 			buttontext1 = "error"
 			buttontext2 = "error"
 			buttontext3 = "error"
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+#
+#func _process(delta: float) -> void:
+	#pass

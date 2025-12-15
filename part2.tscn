@@ -267,13 +267,13 @@ keycode = 80
 [sub_resource type="Shortcut" id="Shortcut_taugx"]
 events = [SubResource("InputEventKey_87qoj")]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqi40"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8h52"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wcvy"]
 bg_color = Color(0.103744, 0.103744, 0.103744, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8h52"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqi40"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="InputEventKey" id="InputEventKey_7q64y"]
@@ -283,21 +283,6 @@ unicode = 32
 
 [sub_resource type="Shortcut" id="Shortcut_nefth"]
 events = [SubResource("InputEventKey_7q64y")]
-
-[sub_resource type="Animation" id="Animation_53j12"]
-resource_name = "slidedown"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(438.001, -705.822), Vector2(438.001, -543.162)]
-}
 
 [sub_resource type="Animation" id="Animation_y6e53"]
 length = 0.001
@@ -312,6 +297,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(438.001, -705.822)]
+}
+
+[sub_resource type="Animation" id="Animation_53j12"]
+resource_name = "slidedown"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(438.001, -705.822), Vector2(438.001, -543.162)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_orrgm"]
@@ -332,6 +332,12 @@ z_index = 1
 position = Vector2(3, -139)
 scale = Vector2(9.35156, 7.37109)
 texture = ExtResource("2_s7bwc")
+
+[node name="Computer" type="Sprite2D" parent="Desk"]
+z_index = 50
+position = Vector2(-1.3901424, 33.373627)
+scale = Vector2(2.0785303, 2.6836195)
+texture = ExtResource("8_y6e53")
 
 [node name="Deskbg" type="Sprite2D" parent="."]
 position = Vector2(1.4708, -12.0625)
@@ -533,13 +539,13 @@ offset_top = -324.0
 offset_right = 576.0
 offset_bottom = -286.0
 theme = ExtResource("6_2om5i")
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0.74558, 0.74558, 0.74558, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.74558, 0.74558, 0.74558, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_j54op")
-theme_override_styles/hover = SubResource("StyleBoxFlat_lqi40")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_0wcvy")
 theme_override_styles/normal = SubResource("StyleBoxFlat_m8h52")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0wcvy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lqi40")
 shortcut = SubResource("Shortcut_nefth")
 text = "Next Text -->"
 
@@ -636,12 +642,6 @@ offset_top = 192.563
 offset_right = 447.167
 offset_bottom = 230.563
 text = "Finish!"
-
-[node name="Computer" type="Sprite2D" parent="."]
-z_index = 50
-position = Vector2(-10, 107)
-scale = Vector2(19.4375, 19.7812)
-texture = ExtResource("8_y6e53")
 
 [node name="redflash" type="ColorRect" parent="."]
 visible = false

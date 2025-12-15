@@ -1,0 +1,325 @@
+[gd_scene load_steps=15 format=3 uid="uid://bkympb0r8vi7"]
+
+[ext_resource type="Script" uid="uid://cjl87yuxqgakn" path="res://cutscene.gd" id="1_8vcau"]
+[ext_resource type="FontFile" uid="uid://ds5fcb2cu8b4j" path="res://Assets/JacquardaBastarda9-Regular.ttf" id="3_u4yv4"]
+[ext_resource type="Texture2D" uid="uid://54pfrwi6ny2a" path="res://Assets/judge.png" id="4_u4yv4"]
+[ext_resource type="Texture2D" uid="uid://beihli7txs8hq" path="res://Assets/judgeguilty.png" id="5_u4yv4"]
+
+[sub_resource type="Animation" id="Animation_1h5ex"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Railroad-idle:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-497, 454)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Railroad-idle/ColorRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-14, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Railroad-idle/dialouge:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7ngta"]
+resource_name = "idle"
+length = 1.6
+loop_mode = 1
+step = 0.8
+
+[sub_resource type="Animation" id="Animation_rlmrl"]
+resource_name = "slidedown"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Railroad-idle:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-502, 215), Vector2(-497, 454)]
+}
+
+[sub_resource type="Animation" id="Animation_5ilt7"]
+resource_name = "slideup"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Railroad-idle:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-497, 454), Vector2(-502, 215)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Railroad-idle/ColorRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-14, 0), Vector2(-14, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Railroad-idle/dialouge:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(10, 0), Vector2(10, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3rl5u"]
+resource_name = "timeslidein"
+step = 1.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0c0il"]
+_data = {
+&"RESET": SubResource("Animation_1h5ex"),
+&"idle": SubResource("Animation_7ngta"),
+&"slidedown": SubResource("Animation_rlmrl"),
+&"slideup": SubResource("Animation_5ilt7"),
+&"timeslidein": SubResource("Animation_3rl5u")
+}
+
+[sub_resource type="Animation" id="Animation_p30sb"]
+resource_name = "cutscene"
+length = 8.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("judge:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "animation"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Railroad-idle/AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": PackedStringArray("slideup"),
+"times": PackedFloat32Array(6)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("judge:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 0, 2, 2, 2),
+"points": PackedFloat32Array(6.015625, -0.24999996, 0, 0.25, 0, 6.015625, 0, 0, 2, 0, 12, -2, 0, 0, 0, 12, 0, 0, 0, -2, 8, -0.25, 0, 0, 0),
+"times": PackedFloat32Array(0, 1, 5, 6, 6.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("judge:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(2, 2, 2, 2, 2),
+"points": PackedFloat32Array(6.015625, -0.25, 0, 0.25, 0, 6.053833, 0, 0, 2, 0, 12, -2, 0, 0, 0, 12, 0, 0, 0, -2, 8, -0.25, 0, 0, 0),
+"times": PackedFloat32Array(0, 1, 5, 6, 6.5)
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(8.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"starttalking"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_53jq0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("judge:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("judge:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(6.015625, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("judge:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(6.015625, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bl24s"]
+resource_name = "fadeout"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"menu"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3q24f"]
+_data = {
+&"RESET": SubResource("Animation_53jq0"),
+&"cutscene": SubResource("Animation_p30sb"),
+&"fadeout": SubResource("Animation_bl24s")
+}
+
+[node name="Cutscene" type="Node2D"]
+script = ExtResource("1_8vcau")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 1250
+zoom = Vector2(1.68, 1.68)
+
+[node name="Railroad-idle" type="Sprite2D" parent="."]
+z_index = 4096
+position = Vector2(-502, 215)
+scale = Vector2(7.91, 7.91)
+texture = ExtResource("4_u4yv4")
+
+[node name="ColorRect" type="ColorRect" parent="Railroad-idle"]
+z_index = -1
+offset_left = -14.0
+offset_right = 360.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="dialouge" type="Label" parent="Railroad-idle"]
+offset_left = 10.0
+offset_right = 490.0
+offset_bottom = 72.0
+scale = Vector2(0.26, 0.26)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_u4yv4")
+theme_override_font_sizes/font_size = 13
+text = "Guilty!"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Railroad-idle"]
+reset_on_save = false
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_0c0il")
+}
+
+[node name="cutsceneplayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3q24f")
+}
+
+[node name="judge" type="Sprite2D" parent="."]
+position = Vector2(0, -64)
+scale = Vector2(6.015625, 6.015625)
+texture = ExtResource("5_u4yv4")
+hframes = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 4096
+offset_left = -974.0
+offset_top = -501.0
+offset_right = 1056.0
+offset_bottom = 697.0
+color = Color(0, 0, 0, 0)
