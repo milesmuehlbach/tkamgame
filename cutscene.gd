@@ -25,7 +25,7 @@ func starttalking():
 	say("The defendent will be placed in jail awaiting sentencing.")
 	await finishtalking
 	await get_tree().create_timer(1.5).timeout
-	say("Case dismissed, you are all free to go.")
+	say("Trial over, you are all free to go.")
 	await finishtalking
 	await get_tree().create_timer(1).timeout
 	$cutsceneplayer.play("fadeout")
