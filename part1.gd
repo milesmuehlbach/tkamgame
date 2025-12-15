@@ -34,6 +34,9 @@ func _ready() -> void:
 	problemani.play("RESET")
 	$ColorRect/AnimationPlayer.play("RESET")
 	dialogue_label.text = ""
+	
+	# Connect gameover signal to handler
+	gameover.connect(_on_gameover)
 
 	runtutorial()
 
