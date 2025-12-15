@@ -13,6 +13,7 @@ var talking: bool = false
 var tutorial: bool = false
 var debug: bool = false
 var isresponse: bool = false
+var isgameover: bool = false
 
 var buttonno := 0
 var scenariocounter := 0
@@ -108,6 +109,7 @@ func mouseadj(item: Node2D, intensityy: float, intensityx: float, yoffset: float
 
 # ---------------- CALLBACKS ----------------
 func _on_gameover() -> void:
+	isgameover = true
 	get_tree().change_scene_to_file("res://gameover.tscn")
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
@@ -187,7 +189,8 @@ func gameloop(number):
 	$problem/Label/Button3.disabled = true
 	$problem/Label/Button.disabled = true
 	$problem/AnimationPlayer.play("slideout")
-	await get_tree().create_timer(1).timeout
+	if !isgameover:
+		await get_tree().create_timer(1).timeout
 	var nn = number + 1
 	gameloop(nn)
 
