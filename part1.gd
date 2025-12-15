@@ -13,6 +13,7 @@ var talking: bool = false
 var tutorial: bool = false
 var debug: bool = false
 var isresponse: bool = false
+var scene_changing: bool = false
 
 var buttonno := 0
 var scenariocounter := 0
@@ -139,6 +140,7 @@ func _button3pressed() -> void:
 func gameloop(number: int) -> void:
 	# 1. Check for end of game BEFORE doing any UI work
 	if number > 6:
+		scene_changing = true
 		get_tree().change_scene_to_file("res://cutscene.tscn")
 		return
 
@@ -173,6 +175,10 @@ func gameloop(number: int) -> void:
 
 	# 3. Wait for the signal
 	await buttonpress
+	
+	# Check if scene is changing after await
+	if scene_changing or not is_instance_valid(self):
+		return
 
 	# 4. Handle results
 	var affect = current_affects[buttonno - 1]
@@ -197,7 +203,15 @@ func gameloop(number: int) -> void:
 	# Wait for animation to finish before looping
 	await problemani.animation_finished
 	
+	# Check if scene is changing after await
+	if scene_changing or not is_instance_valid(self):
+		return
+	
 	# Use a small delay for pacing
 	await get_tree().create_timer(0.5).timeout
+	
+	# Check if scene is changing after await
+	if scene_changing or not is_instance_valid(self):
+		return
 
 	gameloop(number+1)
