@@ -71,7 +71,7 @@ func _init() -> void:
 
 		'6':
 			text = "During your closing statement, what do you focus on most?"
-			buttontext1 = "The evidence that shows Tom is innocent"
+			buttontext1 = "The evidence that shows Tom Robinson is innocent"
 			buttontext2 = "Your own feelings about the case"
 			buttontext3 = "Rushing the jury to decide"
 			affect1 = "GOOD"
