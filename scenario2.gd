@@ -72,10 +72,10 @@ func _init() -> void:
 			bad_text = "Rushing the Jury's decision"
 
 		'7':
-			text = "Tom was shot 17 times while trying to escape prison. How do you present this to the jury?"
-			good_text = "Explain that Tom lost hope in a system that failed him"
-			ok_text = "Mention it briefly without context"
-			bad_text = "Avoid talking about it entirely"
+			text = "The sheriff never called a doctor to examine Mayella after the alleged attack. How do you use this?"
+			good_text = "Point out that no medical evidence supports the accusation"
+			ok_text = "Mention it without pressing further"
+			bad_text = "Let this slide without comment"
 
 		'8':
 			text = "Mayella's injuries were on the right side of her face. What does this suggest about the attacker?"
