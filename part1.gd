@@ -140,6 +140,7 @@ func gameloop(number: int) -> void:
 	# 1. Check for end of game BEFORE doing any UI work
 	if number > 6:
 		get_tree().change_scene_to_file("res://cutscene.tscn")
+		return
 
 	# 2. Reset the scenario
 	var curscenario = ProblemScenario1.new()
